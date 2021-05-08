@@ -10,7 +10,7 @@ USE employees_db;
 -- Department table --
 CREATE TABLE department (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(30) NOT NULL,
+    name VARCHAR(30) NOT NULL
 );
 
 -- Role Table --

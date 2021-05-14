@@ -120,10 +120,25 @@ function viewAllRole() {
 }
 
 function viewAllEmp() {
-  connection.query("SELECT * FROM employee", function (err, res) {
-    console.table(res);
-    startScreen();
-  });
+  connection.query(
+    `SELECT
+     e.id, e.first_name, 
+     e.last_name,
+     role.title,
+     department.name AS department,
+     role.salary, 
+     concat(m.first_name, ' ' ,  m.last_name) AS manager
+     FROM employee e 
+     LEFT JOIN employee m ON e.manager_id = m.id 
+     INNER JOIN role ON e.role_id = role.id 
+     INNER JOIN department ON role.department_id = department.id
+     ORDER BY ID ASC`,
+
+    function (err, res) {
+      console.table(res);
+      startScreen();
+    }
+  );
 }
 
 ///????
@@ -329,17 +344,17 @@ function updateEmpMngr() {
       ])
       .then(function (answer) {
         connection.query(
-          "SELECT * FROM role",
+          "SELECT * FROM employee",
 
           function (err, res) {
             if (err) throw err;
             console.table(res);
             startScreen();
 
-            let managerNames = res.map(function (role) {
+            let managerNames = res.map(function (emp) {
               return {
-                name: role.title,
-                value: role.manager_id,
+                name: emp.first_name + " " + emp.last_name,
+                value: emp.id,
               };
             });
 
@@ -354,8 +369,8 @@ function updateEmpMngr() {
               ])
               .then(function (managerAnswer) {
                 connection.query(
-                  "Update employee SET employee.manager_id=? WHERE employee_id = ?",
-                  [managerAnswer.selectEmployee, answer.selectedManager]
+                  "Update employee SET employee.manager_id=?  WHERE id = ? Like '%Manager%'",
+                  [managerAnswer.selectedManager.value, answer.selectedManager]
                 );
               });
           }

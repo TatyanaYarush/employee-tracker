@@ -122,7 +122,8 @@ function viewAllRole() {
 function viewAllEmp() {
   connection.query(
     `SELECT
-     e.id, e.first_name, 
+     e.id,
+     e.first_name, 
      e.last_name,
      role.title,
      department.name AS department,
@@ -142,28 +143,23 @@ function viewAllEmp() {
 }
 
 ///????
-// function viewAllEmpByMngr() {
-//     connection.query("SELECT * FROM employee", function (err, res) {
-//       console.table(res);
-//       startScreen();
-//     });
-//   }
+function viewAllEmpByMngr() {
+  connection.query(
+    `SELECT
+        e.id,
+        e.first_name AS "First Name",
+        e.last_name AS "Last Name",
+        concat(m.first_name, ' ',m.last_name) as Manager
+        FROM employee e
+        LEFT OUTER JOIN employee m ON e.manager_id = m.employee_id
+        ORDER BY Manager; `,
 
-// const viewAllEmpByMngr=() => {
-//     connection.query(
-//         `SELECT
-//         e.first_name AS First,
-//         e.last_name AS Last,
-//         concat(m.first_name, ' ',m.last_name) as Manager
-//         FROM employee a
-//         LEFT OUTER JOIN employee m ON e.manager_id = m.employee_id
-//         ORDER BY Manager;
-//         `, (err, res) => {
-//         if (err) throw err;
-//       console.table(res);
-//       startScreen();
-//     });
-//   }
+    function (err, res) {
+      console.table(res);
+      startScreen();
+    }
+  );
+}
 
 // Add Dept
 function addDept() {
@@ -368,10 +364,11 @@ function updateEmpMngr() {
                 },
               ])
               .then(function (managerAnswer) {
-                connection.query(
-                  "Update employee SET employee.manager_id=?  WHERE id = ? Like '%Manager%'",
-                  [managerAnswer.selectedManager.value, answer.selectedManager]
-                );
+                console.log("managerAnswer", managerAnswer)
+                // connection.query(
+                //   "Update employee SET employee.manager_id=?  WHERE id = ? Like '%Manager%'",
+                //   [managerAnswer.selectedManager.value, answer.selectedManager]
+                // );
               });
           }
         );
@@ -379,7 +376,95 @@ function updateEmpMngr() {
   });
 }
 
-// function quit() {
-//   connection.end();
-//   process.exit();
+//Delete an employee
+// function deleteEmp() {
+//   connection.query(
+//     `SELECT 
+//       e.id,
+//       e.first_name, 
+//       e.last_name,
+//       FROM employee`,
+
+//     function (err, res) {
+//       let employeeNames = res.map(function (emploee) {
+//         return {
+//           name: emploee.first_name + " " + emploee.last_name,
+//           value: emploee.id,
+//         };
+//       });
+
+//       inquirer
+//         .prompt([
+//           {
+//             type: "list",
+//             name: "chosenEmployee",
+//             message: "Which employee would you like to delete?",
+//             choices: employeeNames,
+//           },
+//         ])
+//         .then(function (answer) {
+//           connection.query(
+//             "SELECT * FROM employee",
+
+//             function (err, res) {
+//               if (err) throw err;
+//               console.table(res);
+//               startScreen();
+
+//               let employeeChoices = res.map(function (role) {
+//                 return {
+//                   name: e.first_name + ' ' +  e.first_name,
+//                   value: role.id,
+//                 };
+//               });
+
+//               inquirer
+//                 .prompt([
+//                   {
+//                     type: "list",
+//                     name: "deleteEmp",
+//                     message: "What is their new role?",
+//                     choices: employeeChoices,
+//                   },
+//                 ])
+//                 .then(function (roleAnswer) {
+//                   connection.query(
+//                     "DELETE FROM employee WHERE employee.id = ?",
+//                     [employeeAnswer.updateRole, answer.eUpdate]
+//                   );
+//                 });
+//             }
+//           );
+//         });
+//     }
+//   );
 // }
+
+
+
+
+function deleteEmp() {
+  connection.query("SELECT * FROM employee")
+
+
+  inquirer
+    .prompt([
+      {
+        type: "input",
+        name: "IDtoRemove",
+        message: "Which employee would you like to delete??",
+      },
+
+    ])
+    .then(function (answer) {
+      connection.query(
+        "DELETE FROM employees where ?`, { id: answer.IDtoRemove })",
+        [answer.IDtoRemove],
+        function (err, res) {
+          if (err) throw err;
+          console.table(res);
+          startScreen();
+        }
+      );
+    });
+}

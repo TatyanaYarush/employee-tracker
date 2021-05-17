@@ -4,7 +4,7 @@ const inquirer = require("inquirer");
 const consoleTable = require("console.table");
 const colors = require("colors");
 
-// create the connection information for the sql database
+// Create the connection information for the sql database
 const connection = mysql.createConnection({
   host: "localhost",
   port: 3306,
@@ -13,13 +13,7 @@ const connection = mysql.createConnection({
   database: "employees_db",
 });
 
-// // connect to the mysql server and sql database
-// connection.connect((err) => {
-//     if (err) throw err;
-//     console.log(`connected as id ${connection.threadId}`);
-//     connection.end();
-//   });
-
+// Questions menu 
 const startScreen = () => {
   inquirer
     .prompt({
@@ -102,8 +96,7 @@ const startScreen = () => {
 
 startScreen();
 
-// console.log(startScreen);
-//View
+//View All Employees
 function viewAllDept() {
   connection.query("SELECT * FROM department", function (err, res) {
     console.table(res);
@@ -142,7 +135,7 @@ function viewAllEmp() {
   );
 }
 
-///
+//View Employees by Manager
 function viewAllEmpByMngr() {
   connection.query(
     `SELECT
@@ -161,7 +154,7 @@ function viewAllEmpByMngr() {
   );
 }
 
-// Add Dept
+// Add Department
 function addDept() {
   inquirer
     .prompt({
@@ -182,7 +175,7 @@ function addDept() {
     });
 }
 
-//// Add Role
+// Add Role
 function addRole() {
   inquirer
     .prompt([
@@ -215,7 +208,7 @@ function addRole() {
     });
 }
 
-///Add Emp
+//Add Employee
 function addEmp() {
   inquirer
     .prompt([
@@ -253,14 +246,10 @@ function addEmp() {
     });
 }
 
-//update Role
+//Update Employee Role
 function updateEmpRole() {
   connection.query("SELECT * FROM employee", function (err, res) {
     if (err) throw err;
-    // console.table(res);
-    // startScreen();
-    // console.log(res);
-
     let emploeeChoices = res.map(function (emploee) {
       return {
         name: emploee.first_name + " " + emploee.last_name,
@@ -314,14 +303,11 @@ function updateEmpRole() {
   });
 }
 
-//Update employee manager
+//Update Employee Manager
 function updateEmpMngr() {
   connection.query("SELECT * FROM employee", function (err, res) {
     if (err) throw err;
-    // console.table(res);
-    // startScreen();
-    // console.log(res);
-
+  
     let emploeeNames = res.map(function (emploee) {
       return {
         name: emploee.first_name + " " + emploee.last_name,
@@ -377,14 +363,11 @@ function updateEmpMngr() {
   });
 }
 
-//del emp
+//Delete Employee
 function deleteEmp() {
 
   connection.query("SELECT * FROM employee", function (err, res) {
     if (err) throw err;
-    // console.table(res);
-    // startScreen();
-    // console.log(res);
 
     let emploeeChoices = res.map(function (emploee) {
       return {
@@ -416,9 +399,7 @@ function deleteEmp() {
   })
 }
   
-
-
-//del role
+// Delete Role
 function deleteRole() {
 
   connection.query("SELECT * FROM role", function (err, res) {
@@ -455,7 +436,7 @@ function deleteRole() {
 }
   
 
-//del dept
+//Delete Department
 function deletDept() {
 
   connection.query("SELECT * FROM department", function (err, res) {

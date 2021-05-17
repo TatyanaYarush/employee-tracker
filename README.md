@@ -6,6 +6,8 @@ MySQL_Employee Tracker
 ![GitHub last commit](https://img.shields.io/github/last-commit/TatyanaYarush/employee-tracker?color=yellow&logo=last%20commit&logoColor=blue)
 
 
+
+
 ## Introduction
 
 This application is for a business owner, which will be able to view and manage departments in their company in order to organize and plan their business.

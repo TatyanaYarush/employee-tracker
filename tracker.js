@@ -377,70 +377,7 @@ function updateEmpMngr() {
   });
 }
 
-//Delete an employee
-// function deleteEmp() {
-//   connection.query(
-//     `SELECT
-//       e.id,
-//       e.first_name,
-//       e.last_name,
-//       FROM employee`,
-
-//     function (err, res) {
-//       let employeeNames = res.map(function (emploee) {
-//         return {
-//           name: emploee.first_name + " " + emploee.last_name,
-//           value: emploee.id,
-//         };
-//       });
-
-//       inquirer
-//         .prompt([
-//           {
-//             type: "list",
-//             name: "chosenEmployee",
-//             message: "Which employee would you like to delete?",
-//             choices: employeeNames,
-//           },
-//         ])
-//         .then(function (answer) {
-//           connection.query(
-//             "SELECT * FROM employee",
-
-//             function (err, res) {
-//               if (err) throw err;
-//               console.table(res);
-//               startScreen();
-
-//               let employeeChoices = res.map(function (role) {
-//                 return {
-//                   name: e.first_name + ' ' +  e.first_name,
-//                   value: role.id,
-//                 };
-//               });
-
-//               inquirer
-//                 .prompt([
-//                   {
-//                     type: "list",
-//                     name: "deleteEmp",
-//                     message: "What is their new role?",
-//                     choices: employeeChoices,
-//                   },
-//                 ])
-//                 .then(function (roleAnswer) {
-//                   connection.query(
-//                     "DELETE FROM employee WHERE employee.id = ?",
-//                     [employeeAnswer.updateRole, answer.eUpdate]
-//                   );
-//                 });
-//             }
-//           );
-//         });
-//     }
-//   );
-// }
-
+//del emp
 function deleteEmp() {
 
   connection.query("SELECT * FROM employee", function (err, res) {
@@ -479,3 +416,77 @@ function deleteEmp() {
   })
 }
   
+
+
+//del role
+function deleteRole() {
+
+  connection.query("SELECT * FROM role", function (err, res) {
+    if (err) throw err;
+
+    let roleChoices = res.map(function (role) {
+      return {
+        name: role.title,
+        value: role.id
+      };
+    });
+
+  inquirer
+    .prompt([
+      {
+        type: "list",
+        name: "removeRole",
+        message: "'Select a Role to remove?",
+        choices: roleChoices,
+      },
+    ])
+    .then(function (answer) {
+      connection.query(
+        "DELETE FROM role where id = ?",
+        [answer.removeRole],
+        function (err, res) {
+          if (err) throw err;
+          console.table(res);
+          startScreen();
+        }
+      );
+    });
+  })
+}
+  
+
+//del dept
+function deletDept() {
+
+  connection.query("SELECT * FROM department", function (err, res) {
+    if (err) throw err;
+
+    let deptChoices = res.map(function (department) {
+      return {
+        name: department.name,
+        value: department.id
+      };
+    });
+
+  inquirer
+    .prompt([
+      {
+        type: "list",
+        name: "removeDept",
+        message: "'Select a Department to remove?",
+        choices: deptChoices,
+      },
+    ])
+    .then(function (answer) {
+      connection.query(
+        "DELETE FROM department where id = ?",
+        [answer.removeDept],
+        function (err, res) {
+          if (err) throw err;
+          console.table(res);
+          startScreen();
+        }
+      );
+    });
+  })
+}

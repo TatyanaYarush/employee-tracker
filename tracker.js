@@ -19,21 +19,21 @@ const startScreen = () => {
     .prompt({
       type: "list",
       name: "option",
-      message: "What would you like to do?\n".yellow,
+      message: "What would you like to do?\n",
       choices: [
-        "View all departments".magenta,
-        "View all  roles".magenta,
-        "View all employees".magenta,
-        "View all employees by manager".magenta,
-        "Add department".green,
-        "Add role".green,
-        "Add employee".green,
-        "Update employee role".blue,
-        "Update employee manager".blue.bold,
-        "Delete employee".red,
-        "Delete role".red.bold,
-        "Delete department".red.bold,
-        "Quit".brightYellow
+        "View all departments",
+        "View all  roles",
+        "View all employees",
+        "View all employees by manager",
+        "Add department",
+        "Add role",
+        "Add employee",
+        "Update employee role",
+        "Update employee manager",
+        "Delete employee",
+        "Delete role",
+        "Delete department",
+        "Quit",
       ],
     })
 
@@ -93,18 +93,17 @@ const startScreen = () => {
       }
     });
 };
-
 startScreen();
 
-//View All Employees
+//View all departments
 function viewAllDept() {
   connection.query("SELECT * FROM department", function (err, res) {
     console.table(res);
-    //   console.log(err)
     startScreen();
   });
 }
 
+//View all roles
 function viewAllRole() {
   connection.query("SELECT * FROM role", function (err, res) {
     console.table(res);
@@ -112,6 +111,7 @@ function viewAllRole() {
   });
 }
 
+//View all employees
 function viewAllEmp() {
   connection.query(
     `SELECT
@@ -135,7 +135,7 @@ function viewAllEmp() {
   );
 }
 
-//View Employees by Manager
+//View employees by manager
 function viewAllEmpByMngr() {
   connection.query(
     `SELECT
@@ -154,7 +154,7 @@ function viewAllEmpByMngr() {
   );
 }
 
-// Add Department
+// Add departments
 function addDept() {
   inquirer
     .prompt({
@@ -175,7 +175,7 @@ function addDept() {
     });
 }
 
-// Add Role
+// Add roles
 function addRole() {
   inquirer
     .prompt([
@@ -208,7 +208,7 @@ function addRole() {
     });
 }
 
-//Add Employee
+//Add employees
 function addEmp() {
   inquirer
     .prompt([
@@ -246,10 +246,14 @@ function addEmp() {
     });
 }
 
-//Update Employee Role
+//Update roles
 function updateEmpRole() {
   connection.query("SELECT * FROM employee", function (err, res) {
     if (err) throw err;
+    // console.table(res);
+    // startScreen();
+    // console.log(res);
+
     let emploeeChoices = res.map(function (emploee) {
       return {
         name: emploee.first_name + " " + emploee.last_name,
@@ -303,11 +307,14 @@ function updateEmpRole() {
   });
 }
 
-//Update Employee Manager
+//Update employee manager
 function updateEmpMngr() {
   connection.query("SELECT * FROM employee", function (err, res) {
     if (err) throw err;
-  
+    // console.table(res);
+    // startScreen();
+    // console.log(res);
+
     let emploeeNames = res.map(function (emploee) {
       return {
         name: emploee.first_name + " " + emploee.last_name,
@@ -363,12 +370,10 @@ function updateEmpMngr() {
   });
 }
 
-//Delete Employee
+//Delete employees
 function deleteEmp() {
-
   connection.query("SELECT * FROM employee", function (err, res) {
     if (err) throw err;
-
     let emploeeChoices = res.map(function (emploee) {
       return {
         name: emploee.first_name + " " + emploee.last_name,
@@ -376,98 +381,95 @@ function deleteEmp() {
       };
     });
 
-  inquirer
-    .prompt([
-      {
-        type: "list",
-        name: "IDtoRemove",
-        message: "Which employee would you like to delete?",
-        choices: emploeeChoices,
-      },
-    ])
-    .then(function (answer) {
-      connection.query(
-        "DELETE FROM employee where id = ?",
-        [answer.IDtoRemove],
-        function (err, res) {
-          if (err) throw err;
-          console.table(res);
-          startScreen();
-        }
-      );
-    });
-  })
+    inquirer
+      .prompt([
+        {
+          type: "list",
+          name: "IDtoRemove",
+          message: "Which employee would you like to delete?",
+          choices: emploeeChoices,
+        },
+      ])
+      .then(function (answer) {
+        connection.query(
+          "DELETE FROM employee where id = ?",
+          [answer.IDtoRemove],
+          function (err, res) {
+            if (err) throw err;
+            console.table(res);
+            startScreen();
+          }
+        );
+      });
+  });
 }
-  
-// Delete Role
-function deleteRole() {
 
+//Delete roles
+function deleteRole() {
   connection.query("SELECT * FROM role", function (err, res) {
     if (err) throw err;
 
     let roleChoices = res.map(function (role) {
       return {
         name: role.title,
-        value: role.id
+        value: role.id,
       };
     });
 
-  inquirer
-    .prompt([
-      {
-        type: "list",
-        name: "removeRole",
-        message: "'Select a Role to remove?",
-        choices: roleChoices,
-      },
-    ])
-    .then(function (answer) {
-      connection.query(
-        "DELETE FROM role where id = ?",
-        [answer.removeRole],
-        function (err, res) {
-          if (err) throw err;
-          console.table(res);
-          startScreen();
-        }
-      );
-    });
-  })
+    inquirer
+      .prompt([
+        {
+          type: "list",
+          name: "removeRole",
+          message: "'Select a Role to remove?",
+          choices: roleChoices,
+        },
+      ])
+      .then(function (answer) {
+        connection.query(
+          "DELETE FROM role where id = ?",
+          [answer.removeRole],
+          function (err, res) {
+            if (err) throw err;
+            console.table(res);
+            startScreen();
+          }
+        );
+      });
+  });
 }
-  
 
-//Delete Department
+//Delete department
 function deletDept() {
-
   connection.query("SELECT * FROM department", function (err, res) {
     if (err) throw err;
 
     let deptChoices = res.map(function (department) {
       return {
         name: department.name,
-        value: department.id
+        value: department.id,
       };
     });
 
-  inquirer
-    .prompt([
-      {
-        type: "list",
-        name: "removeDept",
-        message: "'Select a Department to remove?",
-        choices: deptChoices,
-      },
-    ])
-    .then(function (answer) {
-      connection.query(
-        "DELETE FROM department where id = ?",
-        [answer.removeDept],
-        function (err, res) {
-          if (err) throw err;
-          console.table(res);
-          startScreen();
-        }
-      );
-    });
-  })
+    inquirer
+      .prompt([
+        {
+          type: "list",
+          name: "removeDept",
+          message: "'Select a Department to remove?",
+          choices: deptChoices,
+        },
+      ])
+      .then(function (answer) {
+        connection.query(
+          "DELETE FROM department where id = ?",
+          [answer.removeDept],
+          function (err, res) {
+            if (err) throw err;
+            console.table(res);
+            startScreen();
+          }
+        );
+      });
+  });
 }

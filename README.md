@@ -38,13 +38,13 @@ npm i colors
 ## Screenshots of three tables
 
 Employees table 
-
+![employees_table](https://user-images.githubusercontent.com/70031550/118701877-34b98f00-b7e2-11eb-91db-9f3acd169144.JPG)
 
 Department table
-
+![department_table](https://user-images.githubusercontent.com/70031550/118702036-692d4b00-b7e2-11eb-910a-99cff3d87dde.JPG)
 
 Roles table
-
+![roles_table](https://user-images.githubusercontent.com/70031550/118702073-75b1a380-b7e2-11eb-8498-efd9b73540d1.JPG)
 
 
 

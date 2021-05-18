@@ -1,11 +1,10 @@
 # employee-tracker
 MySQL_Employee Tracker
 
+![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)
 ![GitHub top language](https://img.shields.io/github/languages/top/TatyanaYarush/employee-tracker?color=yellow&label=javascript&logo=javascript&logoColor=green)
 ![GitHub language count](https://img.shields.io/github/languages/count/TatyanaYarush/employee-tracker)
 ![GitHub last commit](https://img.shields.io/github/last-commit/TatyanaYarush/employee-tracker?color=yellow&logo=last%20commit&logoColor=blue)
-
-
 
 
 ## Introduction
@@ -33,8 +32,20 @@ npm i colors
 ```
 ## Walkthrough video
 
+ - YouTube Video:
 
-## Screenshots
+
+## Screenshots of three tables
+
+Employees table 
+
+
+Department table
+
+
+Roles table
+
+
 
 
 ## Tools & Resources & Technologies

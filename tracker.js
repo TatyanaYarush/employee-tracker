@@ -19,21 +19,60 @@ const startScreen = () => {
     .prompt({
       type: "list",
       name: "option",
-      message: "What would you like to do?\n",
+      message: "What would you like to do?\n".yellow,
       choices: [
-        "View all departments",
-        "View all  roles",
-        "View all employees",
-        "View all employees by manager",
-        "Add department",
-        "Add role",
-        "Add employee",
-        "Update employee role",
-        "Update employee manager",
-        "Delete employee",
-        "Delete role",
-        "Delete department",
-        "Quit",
+        {
+          name:"View all departments".magenta,
+          value: "View all departments"
+        },
+        {
+          name:"View all  roles".magenta,
+          value: "View all  roles"
+        },
+        {
+          name:"View all employees".magenta,
+          value: "View all employees"
+        },
+        {
+          name:"View all employees by manager".magenta,
+          value: "View all employees by manager"
+        },
+        {
+          name:"Add department".green,
+          value: "Add department"
+        },
+        {
+          name:"Add role".green,
+          value: "Add role"
+        },
+        {
+          name:"Add employee".green,
+          value: "Add employee"
+        },
+        {
+          name:"Update employee role".blue,
+          value: "Update employee role"
+        },
+        {
+          name:"Update employee manager".blue,
+          value: "Update employee manager"
+        },
+        {
+          name:"Delete employee".red,
+          value: "Delete employee"
+        },
+        {
+          name:"Delete role".red,
+          value: "Delete role"
+        },
+        {
+          name:"Delete department".red,
+          value: "Delete department"
+        },
+        {
+          name:"Quit".brightYellow,
+          value: "Quit"
+        },
       ],
     })
 

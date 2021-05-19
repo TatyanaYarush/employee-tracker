@@ -30,8 +30,9 @@ npm install console.table
 npm install mysql
 npm i colors
 ```
-## Walkthrough video
-![](https://user-images.githubusercontent.com/70031550/118744030-93522d80-b821-11eb-8d75-ce7cfe4ecc61.mp4)
+## Walkthrough videos
+
+![main_menu](https://user-images.githubusercontent.com/70031550/118859517-50876880-b8a8-11eb-8e57-f7f554361a0b.gif)
 
  - YouTube Video: [Walkthrough DemoVideo](https://www.youtube.com/watch?v=oAhT7Yb7ZXE)
 
@@ -43,7 +44,7 @@ Employees table
 ![employees_table](https://user-images.githubusercontent.com/70031550/118701877-34b98f00-b7e2-11eb-91db-9f3acd169144.JPG)
 
 
-Department table
+Departments table
 
 ![department_table](https://user-images.githubusercontent.com/70031550/118702036-692d4b00-b7e2-11eb-910a-99cff3d87dde.JPG)
 

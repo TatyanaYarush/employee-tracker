@@ -31,7 +31,7 @@ npm install mysql
 npm i colors
 ```
 ## Walkthrough video
-![](employee-tracker/images/demo1.gif)
+![](https://user-images.githubusercontent.com/70031550/118744030-93522d80-b821-11eb-8d75-ce7cfe4ecc61.mp4)
 
  - YouTube Video: [Walkthrough DemoVideo](https://www.youtube.com/watch?v=oAhT7Yb7ZXE)
 
